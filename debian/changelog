@@ -1,0 +1,169 @@
+cmus (2.2.0-4ubuntu1) jaunty; urgency=low
+
+  * Merge from debian unstable, Ubuntu remaining changes:
+    - debian/control:
+      + Continue to drop libartsc0-dev from Build-Depends.
+      + Build-Depends on pkg-config, missing due to libartsc0-dev build
+        depending on it down the chain.
+
+ -- Alessio Treglia <quadrispro@ubuntu.com>  Sun, 29 Mar 2009 15:30:48 +0200
+
+cmus (2.2.0-4) unstable; urgency=low
+
+  * Updated debian/watch file Closes: #449897 
+    - Thanks to Raphael Geissert <atomo64@gmail.com>
+  * Fix the ffmpeg/avcodec.h includes Closes: #517570
+    - Thanks to Cyril Brulebois <kibi@debian.org>
+  * Added Recommends libasound2, libartsc0, libao2 Closes: #439719
+  * Added Depends line in debian/control
+  * Added dpatch on Build-Depends on debian/control
+  * Deleted commented lines on debian/rules
+  * Update debian/rules for dpatch dependence
+  * Changed debian/control
+    - Standard-Version to 3.8.1 ( was 3.8.0 )
+    - Added debian/README.source
+    - Updated to debhelper to 7
+    - Updated debian/compat (was 5)
+    - Added Homepage field
+
+ -- Carlos Eduardo Sotelo Pinto (krlos) <krlos.aqp@gmail.com>  Thu, 19 Mar 2009 13:38:16 -0500
+
+cmus (2.2.0-3ubuntu2) jaunty; urgency=low
+
+  * Remove arts from dependencies. (LP: #320915)
+    - debian/control:
+      - Remove libartsc0-dev from build depends.
+      + Add pkg-config as build depends; now missing due to
+        libartsc0-dev build depending on it down the chain.
+
+ -- Andreas Wenning <awen@awen.dk>  Thu, 29 Jan 2009 06:16:20 +0100
+
+cmus (2.2.0-3ubuntu1) jaunty; urgency=low
+
+  * Merge from debian unstable (LP: #313477), Ubuntu remaining changes:
+    - ffmpeg.c: use correct headers location to fix FTBFS with recent ffmpeg
+      snapshots (LP: #311007).
+
+ -- Alessio Treglia <quadrispro@ubuntu.com>  Sat, 03 Jan 2009 15:54:50 +0100
+
+cmus (2.2.0-3) unstable; urgency=low
+
+  * Acknowledging NMU.  Closes: #509277.
+
+ -- Carlos Eduardo Sotelo Pinto (krlos) <krlos.aqp@gmail.com>  Mon, 29 Dec 2008 22:01:01 +0100
+
+cmus (2.2.0-2) unstable; urgency=low
+
+  * New maintainer. Closes: #484734
+  * Changed debian/control
+    - Standard-Version to 3.8.0 ( was 3.7.2 no changes needed )
+
+ -- Carlos Eduardo Sotelo Pinto (krlos) <krlos.aqp@gmail.com>  Wed, 03 Sep 2008 17:46:50 -0500
+
+cmus (2.2.0-1.1ubuntu1) jaunty; urgency=low
+
+  * Merge from debian unstable (LP: #312215), Ubuntu remaining changes:
+    - ffmpeg.c: use correct headers location to fix FTBFS with recent ffmpeg
+      snapshots (LP: #311007).
+
+ -- Alessio Treglia <quadrispro@ubuntu.com>  Mon, 29 Dec 2008 17:36:47 +0100
+
+cmus (2.2.0-1.1) unstable; urgency=high
+
+  * Non-maintainer upload by the Security Team.
+  * Modify example script cmus-status-display to write the current
+    status to .cmus-status in the user's home instead of /tmp/cmus-status,
+    since the latter could lead to symlink attacks. CVE-2008-5375
+    (Closes: #509277)
+
+ -- Moritz Muehlenhoff <jmm@debian.org>  Sun, 28 Dec 2008 14:57:06 +0100
+
+cmus (2.2.0-1ubuntu1) jaunty; urgency=low
+
+  * ffmpeg.c: use correct headers location to fix FTBFS with recent ffmpeg
+    snapshots (LP: #311007).
+
+ -- Lionel Le Folgoc <mrpouit@ubuntu.com>  Fri, 26 Dec 2008 13:08:26 +0100
+
+cmus (2.2.0-1build2) jaunty; urgency=low
+
+  * Rebuild to pickup ffmpeg's new shlibs (LP: #289600).
+
+ -- Lionel Le Folgoc <mrpouit@ubuntu.com>  Thu, 06 Nov 2008 22:16:39 +0100
+
+cmus (2.2.0-1build1) intrepid; urgency=low
+
+  * Rebuild for ffmpeg -> ffmpeg-free transition (LP: #245576). 
+
+ -- Michael Bienia <geser@ubuntu.com>  Tue, 08 Jul 2008 16:02:28 +0200
+
+cmus (2.2.0-1) unstable; urgency=low
+
+  * New upstream release
+  * Add libwavpack-dev and libavformat.dev to Build-Depends
+  * Update debian/copyright
+
+ -- Julien Louis <ptitlouis@sysif.net>  Fri, 27 Jul 2007 21:54:36 +0200
+
+cmus (2.1.0-2) unstable; urgency=low
+
+  * Rebuild against libflac8 (Closes: #426638).
+
+ -- Julien Louis <ptitlouis@sysif.net>  Mon, 04 Jun 2007 22:56:58 +0200
+
+cmus (2.1.0-1) unstable; urgency=low
+
+  * New upstream release (closes: #399965).
+  * Updated debian/copyright
+  * Added libfaad-dev to Build-Depends
+
+ -- Julien Louis <ptitlouis@sysif.net>  Thu, 21 Dec 2006 20:25:59 +0100
+
+cmus (2.0.4-1) unstable; urgency=low
+
+  * New upstream release.
+  * Added debian/watch file.
+  * Build-Depends agains libasound2-dev (>= 1.0.11).
+
+ -- Julien Louis <ptitlouis@sysif.net>  Wed, 23 Aug 2006 03:34:04 +0200
+
+cmus (2.0.3-3) unstable; urgency=low
+
+  * Drop libasound2-dev Build Dependency on non-linux arches
+    (Closes: #377885).
+
+ -- Julien Louis <ptitlouis@sysif.net>  Wed, 12 Jul 2006 01:06:02 +0200
+
+cmus (2.0.3-2) unstable; urgency=low
+
+  * Move all dh_* helper stuff in the binary-arch target (Closes: #376320).
+  * Remove debian/patches/01_asciidoc_xsl_path.dpatch since it is not usefull.
+  * Remove dpatch from Build-Depends.
+
+ -- Julien Louis <ptitlouis@sysif.net>  Sun,  2 Jul 2006 14:16:03 +0200
+
+cmus (2.0.3-1) unstable; urgency=low
+
+  * New upstream release.
+  * Remove asciidoc, docbook-xsl, doxbook-xml ans xsltproc from Build-Depends.
+  * Add libartsc0-dev and libao-dev to Build-Depends.
+
+ -- Julien Louis <ptitlouis@sysif.net>  Sun, 18 Jun 2006 17:26:44 +0200
+
+cmus (2.0.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Remove ASCIIDOC patch since upstream now search for
+    /etc/asciidoc/docbook-xsl/.
+  * Add docbook-xml to Build-Depends.
+  * Bump Standards-Version no change needed.
+  * Added REAMDE.Debian
+
+ -- Julien Louis <ptitlouis@sysif.net>  Tue, 30 May 2006 22:12:01 +0200
+
+cmus (2.0.0-1) unstable; urgency=low
+
+  * Initial release (Closes: #340000)
+
+ -- Julien Louis <ptitlouis@sysif.net>  Mon,  7 Nov 2005 18:19:55 +0100
+

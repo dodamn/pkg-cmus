@@ -1,0 +1,38 @@
+This package was debianized by Julien Louis <ptitlouis@sysif.net> on
+Mon,  7 Nov 2005 18:19:55 +0100.
+
+It was downloaded from http://onion.dynserv.net/~timo/index.php?page=Projects/cmus
+
+Copyright Holder: 
+2004-2006 Timo Hirvonen <tihirvon@gmail.com>
+
+License:
+
+   This package is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This package is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this package; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+
+On Debian systems, the complete text of the GNU General
+Public License can be found in `/usr/share/common-licenses/GPL-2'.
+
+
+Other copyright holders:
+ - Copyright 2006 Johannes Weißl for ao.c
+ - Copyright 2006 Chun-Yu Shei <cshei AT cs.indiana.edu> for mpc.c
+ - Copyright 2006 dnk <dnk@bjum.net> for aac.c, mp4.c and waveout.c
+ - Copyright (C) 1999 Paul N. Fisher <rao@gnu.org>			
+                 2002 Andy Lo A Foe <andy@alsaplayer.org> for mikmod.c
+ - Copyright 2007 Kevin Ko <kevin.s.ko@gmail.com> for ffmpeg.c	
+ - Copyright 2007 Johannes Weißl for most wavpack.c parts
+ - (C) 2006 by Peter Lemenkov <lemenkov@newmail.ru>  for a small part of
+   wavpack.c

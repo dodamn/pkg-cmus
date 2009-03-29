@@ -1,0 +1,23 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## cmusffmpeg.dpatch by Carlos Eduardo Sotelo Pinto (krlos) <krlos.aqp@gmail.com>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Fix the ffmpeg/avcodec.h API
+
+@DPATCH@
+
+--- a/ffmpeg.c
++++ b/ffmpeg.c
+@@ -18,9 +18,9 @@
+  */
+ 
+ #include <stdio.h>
+-#include <ffmpeg/avcodec.h>
+-#include <ffmpeg/avformat.h>
+-#include <ffmpeg/avio.h>
++#include <libavcodec/avcodec.h>
++#include <libavformat/avformat.h>
++#include <libavformat/avio.h>
+ 
+ #include "ip.h"
+ #include "xmalloc.h"

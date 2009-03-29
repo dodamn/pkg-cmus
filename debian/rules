@@ -1,0 +1,84 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+#export DH_VERBOSE=1
+
+#include /usr/share/dpatch/dpatch.make
+
+DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
+
+CFLAGS = -Wall -g 
+
+ifneq (, $(findstring nostrip, $(DEB_BUILD_OPTIONS)))
+	INSTALL_PROGRAM += -s
+endif
+
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+	CFLAGS += -O0
+else
+	CFLAGS += -O2
+endif
+
+configure-stamp:
+	dh_testdir
+	LDFLAGS="-Wl,--as-needed" CFLAGS="-I/usr/include/ncursesw" ./configure	prefix=/usr DEBUG=0
+	touch configure-stamp
+
+
+build: build-stamp
+
+build-stamp: configure-stamp patch
+	dh_testdir
+
+	$(MAKE) 
+	touch build-stamp
+
+clean: clean1 unpatch
+clean1:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp configure-stamp
+
+	[ ! -f config.mk ] || $(MAKE) distclean
+	dh_clean 
+	rm -f .install.log
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_prep
+
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/cmus
+
+
+binary-indep: build install
+
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_installexamples
+	dh_installchangelogs
+	dh_installman
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+patch: patch-stamp
+patch-stamp:
+	dpatch apply-all -v
+	#dpatch call-all -a=pkg-info >patch-stamp
+
+unpatch:
+	dpatch deapply-all
+	rm -rf patch-stamp debian/patched
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install patch unpatch \
+	clean1
