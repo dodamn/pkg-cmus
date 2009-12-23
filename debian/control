@@ -1,8 +1,8 @@
 Source: cmus
 Section: sound
 Priority: optional
-Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
-XSBC-Original-Maintainer: Carlos Eduardo Sotelo Pinto (krlos) <krlos.aqp@gmail.com>
+Maintainer: dodamn <dodamn@gmail.com>
+XSBC-Original-Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
 Build-Depends: debhelper (>= 7.0.0), dpatch, libflac-dev, libncursesw5-dev,
  libmodplug-dev, libmad0-dev, libvorbis-dev, libasound2-dev (>= 1.0.11) [!kfreebsd-i386 !kfreebsd-amd64 !hurd-i386],
  libmpcdec-dev, libao-dev, libfaad-dev, libwavpack-dev, libavformat-dev, pkg-config
