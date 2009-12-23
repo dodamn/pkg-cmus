@@ -450,7 +450,9 @@ static int op_alsa_pause(void)
 		} else {
 			d_print("error: state is not RUNNING or PREPARED\n");
 		}
-	}
+	} else {
+        snd_pcm_drop(alsa_handle);
+    }
 	return 0;
 }
 
@@ -475,7 +477,9 @@ static int op_alsa_unpause(void)
 		} else {
 			d_print("error: state is not PAUSED nor PREPARED\n");
 		}
-	}
+	} else {
+        snd_pcm_prepare(alsa_handle);
+    }
 	return 0;
 }
 
