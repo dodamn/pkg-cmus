@@ -1,3 +1,10 @@
+cmus (2.2.0-4ubuntu2~ppa1~jaunty1) jaunty; urgency=low
+
+  * Add gapless mp3 playback
+    - Thanks to Chun-Yu Shei <cshei@cs.indiana.edu> 
+
+ -- dodamn <dodamn@gmail.com>  Thu, 24 Dec 2009 04:33:06 +0900
+
 cmus (2.2.0-4ubuntu1) jaunty; urgency=low
 
   * Merge from debian unstable, Ubuntu remaining changes:
