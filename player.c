@@ -233,13 +233,23 @@ static void update_rg_scale(void)
 	if (!player_info.ti || !replaygain)
 		return;
 
-	if (replaygain == RG_TRACK) {
+	if (replaygain == RG_TRACK || replaygain == RG_TRACK_PREFERRED) {
 		g = comments_get_val(player_info.ti->comments, "replaygain_track_gain");
 		p = comments_get_val(player_info.ti->comments, "replaygain_track_peak");
 	} else {
 		g = comments_get_val(player_info.ti->comments, "replaygain_album_gain");
 		p = comments_get_val(player_info.ti->comments, "replaygain_album_peak");
 	}
+
+    if (!g || !p) {
+        if (replaygain == RG_TRACK_PREFERRED) {
+    		g = comments_get_val(player_info.ti->comments, "replaygain_album_gain");
+	    	p = comments_get_val(player_info.ti->comments, "replaygain_album_peak");
+        } else if (replaygain == RG_ALBUM_PREFERRED) {
+    		g = comments_get_val(player_info.ti->comments, "replaygain_track_gain");
+	    	p = comments_get_val(player_info.ti->comments, "replaygain_track_peak");
+        }
+    }
 
 	if (!g || !p) {
 		d_print("gain or peak not available\n");
