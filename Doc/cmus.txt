@@ -29,6 +29,9 @@ it can be controlled from the outside via *cmus-remote*(1).
 	NOTE: Don't use this option to run multiple instances as same user.
 	That would corrupt the track metadata cache.
 
+--no-trackdb
+	Trackdb is not used.
+
 --plugins
 	List available plugins and exit.
 

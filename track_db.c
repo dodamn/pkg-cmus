@@ -45,6 +45,10 @@ struct track_db *track_db_new(const char *filename_base)
 	struct track_db *db;
 	int rc;
 
+    if (no_trackdb()) {
+        return NULL;
+    }
+
 	db = xnew(struct track_db, 1);
 	db->db = db_new(filename_base);
 	rc = db_load(db->db);
@@ -58,6 +62,10 @@ int track_db_close(struct track_db *db)
 {
 	int rc;
 
+    if (no_trackdb()) {
+        return 0;
+    }
+
 	rc = db_close(db->db);
 	free(db);
 	return rc;
@@ -67,6 +75,10 @@ void track_db_insert(struct track_db *db, const char *filename, struct track_inf
 {
 	char *key, *data, *ptr;
 	int data_size, i, rc;
+
+    if (no_trackdb()) {
+        return;
+    }
 
 	data_size = 8;
 	for (i = 0; ti->comments[i].key; i++) {
@@ -155,7 +167,11 @@ struct track_info *track_db_get_track(struct track_db *db, const char *filename)
 	int rc;
 	time_t mtime = file_get_mtime(filename);
 
-	rc = db_query(db->db, filename, &data, &data_size);
+    if (no_trackdb()) {
+        rc = 0;
+    } else {
+    	rc = db_query(db->db, filename, &data, &data_size);
+    }
 	if (rc == 1) {
 		/* found */
 		ti = track_info_new(filename);
@@ -191,6 +207,8 @@ struct track_info *track_db_get_track(struct track_db *db, const char *filename)
 	ti->duration = duration;
 	ti->mtime = mtime;
 
-	track_db_insert(db, filename, ti);
+    if (!no_trackdb()) {
+    	track_db_insert(db, filename, ti);
+    }
 	return ti;
 }

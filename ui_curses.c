@@ -94,6 +94,8 @@ static int error_count = 0;
 
 static char *server_address = NULL;
 
+static int no_trackdb_option = 0;
+
 static char *charset = NULL;
 static char print_buffer[512];
 
@@ -1471,6 +1473,11 @@ void update_colors(void)
 	}
 }
 
+int no_trackdb(void)
+{
+    return no_trackdb_option;
+}
+
 static void clear_error(void)
 {
 	time_t t = time(NULL);
@@ -2001,6 +2008,7 @@ static void exit_all(void)
 
 enum {
 	FLAG_LISTEN,
+    FLAG_NO_TRACKDB,
 	FLAG_PLUGINS,
 	FLAG_HELP,
 	FLAG_VERSION,
@@ -2009,6 +2017,7 @@ enum {
 
 static struct option options[NR_FLAGS + 1] = {
 	{ 0, "listen", 1 },
+    { 0, "no-trackdb", 0 },
 	{ 0, "plugins", 0 },
 	{ 0, "help", 0 },
 	{ 0, "version", 0 },
@@ -2022,6 +2031,7 @@ static const char *usage =
 "      --listen ADDR   listen on ADDR instead of ~/.cmus/socket\n"
 "                      ADDR is either a UNIX socket or host[:port]\n"
 "                      WARNING: using TCP/IP is insecure!\n"
+"      --no-trackdb    trackdb is not used\n"
 "      --plugins       list available plugins and exit\n"
 "      --help          display this help and exit\n"
 "      --version       " VERSION "\n"
@@ -2056,6 +2066,9 @@ int main(int argc, char *argv[])
 		case FLAG_LISTEN:
 			server_address = xstrdup(arg);
 			break;
+        case FLAG_NO_TRACKDB:
+            no_trackdb_option = 1;
+            break;
 		}
 	}
 
