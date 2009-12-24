@@ -23,6 +23,7 @@
 #include "player.h"
 #include "utils.h"
 #include "debug.h"
+#include "ui_curses.h"
 
 #include <inttypes.h>
 
