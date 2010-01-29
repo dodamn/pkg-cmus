@@ -1,3 +1,9 @@
+cmus (2.2.0-4ubuntu3~ppa1~karmic1) karmic; urgency=low
+
+  * Release for karmic
+
+ -- dodamn <dodamn@gmail.com>  Fri, 29 Jan 2010 23:38:20 +0900
+
 cmus (2.2.0-4ubuntu2~ppa3~jaunty1) jaunty; urgency=low
 
   * Remove build warning
