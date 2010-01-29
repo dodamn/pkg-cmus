@@ -1,3 +1,10 @@
+cmus (2.2.0-4ubuntu3~ppa2~karmic1) karmic; urgency=low
+
+  * Fix package build error for patch file mode bits
+    - Change file mode bits from 644 to 755
+
+ -- dodamn <dodamn@gmail.com>  Fri, 29 Jan 2010 23:43:15 +0900
+
 cmus (2.2.0-4ubuntu3~ppa1~karmic1) karmic; urgency=low
 
   * Release for karmic
