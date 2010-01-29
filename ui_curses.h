@@ -50,6 +50,5 @@ void set_view(int view);
 void enter_command_mode(void);
 void enter_search_mode(void);
 void enter_search_backward_mode(void);
-int no_trackdb(void);
 
 #endif
