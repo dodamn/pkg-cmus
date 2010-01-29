@@ -1,7 +1,7 @@
 01_cmusffmpeg
 02_cmusstatusdisplay
-03_gapless_mp3_playback.dpatch
-04_fix_resume_pause.dpatch
-05_add_no_trackdb_option.dpatch
-06_add_replaygain_preferred_option.dpatch
+03_gapless_mp3_playback
+04_fix_resume_pause
+05_add_no_trackdb_option
+06_add_replaygain_preferred_option
 
