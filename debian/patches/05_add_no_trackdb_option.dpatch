@@ -1,0 +1,160 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 05_add_no_trackdb_option.dpatch by dodamn <dodamn@gmail.com>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: add --no-trackdb option
+
+@DPATCH@
+
+diff --git a/Doc/cmus.txt b/Doc/cmus.txt
+index cf4b309..c72d3d2 100644
+--- a/Doc/cmus.txt
++++ b/Doc/cmus.txt
+@@ -29,6 +29,9 @@ it can be controlled from the outside via *cmus-remote*(1).
+ 	NOTE: Don't use this option to run multiple instances as same user.
+ 	That would corrupt the track metadata cache.
+ 
++--no-trackdb
++	Trackdb is not used.
++
+ --plugins
+ 	List available plugins and exit.
+ 
+diff --git a/track_db.c b/track_db.c
+index 808375f..8c20120 100644
+--- a/track_db.c
++++ b/track_db.c
+@@ -23,6 +23,7 @@
+ #include "player.h"
+ #include "utils.h"
+ #include "debug.h"
++#include "ui_curses.h"
+ 
+ #include <inttypes.h>
+ 
+@@ -45,6 +46,10 @@ struct track_db *track_db_new(const char *filename_base)
+ 	struct track_db *db;
+ 	int rc;
+ 
++    if (no_trackdb()) {
++        return NULL;
++    }
++
+ 	db = xnew(struct track_db, 1);
+ 	db->db = db_new(filename_base);
+ 	rc = db_load(db->db);
+@@ -58,6 +63,10 @@ int track_db_close(struct track_db *db)
+ {
+ 	int rc;
+ 
++    if (no_trackdb()) {
++        return 0;
++    }
++
+ 	rc = db_close(db->db);
+ 	free(db);
+ 	return rc;
+@@ -68,6 +77,10 @@ void track_db_insert(struct track_db *db, const char *filename, struct track_inf
+ 	char *key, *data, *ptr;
+ 	int data_size, i, rc;
+ 
++    if (no_trackdb()) {
++        return;
++    }
++
+ 	data_size = 8;
+ 	for (i = 0; ti->comments[i].key; i++) {
+ 		data_size += strlen(ti->comments[i].key) + 1;
+@@ -155,7 +168,11 @@ struct track_info *track_db_get_track(struct track_db *db, const char *filename)
+ 	int rc;
+ 	time_t mtime = file_get_mtime(filename);
+ 
+-	rc = db_query(db->db, filename, &data, &data_size);
++    if (no_trackdb()) {
++        rc = 0;
++    } else {
++    	rc = db_query(db->db, filename, &data, &data_size);
++    }
+ 	if (rc == 1) {
+ 		/* found */
+ 		ti = track_info_new(filename);
+@@ -191,6 +208,8 @@ struct track_info *track_db_get_track(struct track_db *db, const char *filename)
+ 	ti->duration = duration;
+ 	ti->mtime = mtime;
+ 
+-	track_db_insert(db, filename, ti);
++    if (!no_trackdb()) {
++    	track_db_insert(db, filename, ti);
++    }
+ 	return ti;
+ }
+diff --git a/ui_curses.c b/ui_curses.c
+index 08863f9..5c16184 100644
+--- a/ui_curses.c
++++ b/ui_curses.c
+@@ -94,6 +94,8 @@ static int error_count = 0;
+ 
+ static char *server_address = NULL;
+ 
++static int no_trackdb_option = 0;
++
+ static char *charset = NULL;
+ static char print_buffer[512];
+ 
+@@ -1471,6 +1473,11 @@ void update_colors(void)
+ 	}
+ }
+ 
++int no_trackdb(void)
++{
++    return no_trackdb_option;
++}
++
+ static void clear_error(void)
+ {
+ 	time_t t = time(NULL);
+@@ -2001,6 +2008,7 @@ static void exit_all(void)
+ 
+ enum {
+ 	FLAG_LISTEN,
++    FLAG_NO_TRACKDB,
+ 	FLAG_PLUGINS,
+ 	FLAG_HELP,
+ 	FLAG_VERSION,
+@@ -2009,6 +2017,7 @@ enum {
+ 
+ static struct option options[NR_FLAGS + 1] = {
+ 	{ 0, "listen", 1 },
++    { 0, "no-trackdb", 0 },
+ 	{ 0, "plugins", 0 },
+ 	{ 0, "help", 0 },
+ 	{ 0, "version", 0 },
+@@ -2022,6 +2031,7 @@ static const char *usage =
+ "      --listen ADDR   listen on ADDR instead of ~/.cmus/socket\n"
+ "                      ADDR is either a UNIX socket or host[:port]\n"
+ "                      WARNING: using TCP/IP is insecure!\n"
++"      --no-trackdb    trackdb is not used\n"
+ "      --plugins       list available plugins and exit\n"
+ "      --help          display this help and exit\n"
+ "      --version       " VERSION "\n"
+@@ -2056,6 +2066,9 @@ int main(int argc, char *argv[])
+ 		case FLAG_LISTEN:
+ 			server_address = xstrdup(arg);
+ 			break;
++        case FLAG_NO_TRACKDB:
++            no_trackdb_option = 1;
++            break;
+ 		}
+ 	}
+ 
+diff --git a/ui_curses.h b/ui_curses.h
+index 88762e5..8e90497 100644
+--- a/ui_curses.h
++++ b/ui_curses.h
+@@ -50,5 +50,6 @@ void set_view(int view);
+ void enter_command_mode(void);
+ void enter_search_mode(void);
+ void enter_search_backward_mode(void);
++int no_trackdb(void);
+ 
+ #endif
