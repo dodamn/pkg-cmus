@@ -3,4 +3,5 @@
 03_gapless_mp3_playback.dpatch
 04_fix_resume_pause.dpatch
 05_add_no_trackdb_option.dpatch
+06_add_replaygain_preferred_option.dpatch
 
