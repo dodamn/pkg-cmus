@@ -1,4 +1,5 @@
 01_cmusffmpeg
 02_cmusstatusdisplay
 03_gapless_mp3_playback.dpatch
+04_fix_resume_pause.dpatch
 
