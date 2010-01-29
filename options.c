@@ -535,7 +535,7 @@ static void toggle_repeat(unsigned int id)
 }
 
 const char * const replaygain_names[] = {
-	"disabled", "track", "album", "track-preferred", "album-preferred", NULL
+	"disabled", "track", "album", NULL
 };
 
 static void get_replaygain(unsigned int id, char *buf)
@@ -547,14 +547,14 @@ static void set_replaygain(unsigned int id, const char *buf)
 {
 	int tmp;
 
-	if (!parse_enum(buf, 0, 4, replaygain_names, &tmp))
+	if (!parse_enum(buf, 0, 2, replaygain_names, &tmp))
 		return;
 	player_set_rg(tmp);
 }
 
 static void toggle_replaygain(unsigned int id)
 {
-	player_set_rg((replaygain + 1) % 5);
+	player_set_rg((replaygain + 1) % 3);
 }
 
 static void get_replaygain_limit(unsigned int id, char *buf)
